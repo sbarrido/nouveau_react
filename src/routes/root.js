@@ -2,13 +2,13 @@ export default function Root() {
     return (
       <>
         <div id="sidebar">
-          <h1>React Router Contacts haa</h1>
+          <h1>React Router Testing</h1>
           <div>
             <form id="search-form" role="search">
               <input
                 id="q"
-                aria-label="Search contacts"
-                placeholder="Search contacts"
+                aria-label="Search "
+                placeholder="Search"
                 type="search"
                 name="q"
               />
@@ -26,16 +26,6 @@ export default function Root() {
               <button type="submit">New</button>
             </form>
           </div>
-          <nav>
-            <ul>
-              <li>
-                <a href={`/contacts/1`}>Your Name</a>
-              </li>
-              <li>
-                <a href={`/contacts/2`}>Your Friend</a>
-              </li>
-            </ul>
-          </nav>
         </div>
         <div id="detail"></div>
       </>
