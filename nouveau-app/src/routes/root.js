@@ -2,7 +2,7 @@ export default function Root() {
     return (
       <>
         <div id="sidebar">
-          <h1>React Router Contacts h</h1>
+          <h1>React Router Contacts haa</h1>
           <div>
             <form id="search-form" role="search">
               <input
