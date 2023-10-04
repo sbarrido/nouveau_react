@@ -2,7 +2,7 @@ export default function Root() {
     return (
       <>
         <div id="sidebar">
-          <h1>React Router Testings push CD</h1>
+          <h1>React Router Testings Registration</h1>
           <div>
             <form id="search-form" role="search">
               <input
