@@ -8,12 +8,12 @@ import axios from "axios";
 // encryption?
 
 
-let REGISTRATION_URL = "http://localhost:8080/registration";
-//let REGISTRATION_URL = "https://deploymenturl";
+//let REGISTRATION_URL = "http://localhost:8080/registration";
+let REGISTRATION_URL = "https://deploymenturl";
 
 //class Registration extends React.Component {
-function Registration () {
-
+function registration () {
+    
     const uniqueUser = async (email) => {
         const unique = await axios.get(REGISTRATION_URL+'/'+email);
         return unique.data?.unique;
