@@ -129,4 +129,4 @@ function registration () {
     //}
 }
 
-export default Registration;
+export default registration;
