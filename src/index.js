@@ -7,7 +7,6 @@ import {
 import "./index.css";
 import reportWebVitals from './reportWebVitals';
 import Root from "./routes/root";
-import Landing from "./routes/landing";
 import Registration from "./routes/registration";
 
 
@@ -15,10 +14,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-  },
-  {
-    path:"landing",
-    element: <Landing />,
   },
   {
     path:"registration",
