@@ -8,6 +8,9 @@ import "./index.css";
 import reportWebVitals from './reportWebVitals';
 import Root from "./routes/root";
 import Registration from "./routes/registration";
+import DuoEnroll from "./routes/duoenroll"
+import Login from "./routes/login"
+import DuoAuth from "./routes/duoauth"
 
 
 const router = createBrowserRouter([
@@ -18,6 +21,18 @@ const router = createBrowserRouter([
   {
     path:"registration",
     element: <Registration />,
+  },
+  {
+    path:"registration/enroll",
+    element: <DuoEnroll />
+  },
+  {
+    path:"login",
+    element: <Login />
+  },
+  {
+    path:"login/auth",
+    element: <DuoAuth />
   }
 ]);
 
