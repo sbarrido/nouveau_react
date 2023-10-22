@@ -6,7 +6,7 @@ import logo from './../img/Nouveau Health-logos_white.png';
 import {Navbar, NavbarBrand, NavbarText, Button, Col, Form, FormGroup, Input, Label, Row} from 'reactstrap';
 import axios from 'axios';
 
-let REGISTRATION_URL = "nouveau-app.azurewebsites.net/login";
+let LOGIN_URL = "nouveau-app.azurewebsites.net/login";
 //let LOGIN_URL = "http://localhost:8080/login"
 export default function Login() {
     const [email, setEmail] = useState('');
