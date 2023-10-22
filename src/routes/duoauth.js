@@ -7,8 +7,8 @@ import {Navbar, NavbarBrand, NavbarText, Button, Col, Form, FormGroup, Input, La
 import axios from 'axios';
 import { act } from 'react-dom/test-utils';
 
-//let REGISTRATION_URL = "nouveau-app.azurewebsites.net/login/auth";
-let REGISTRATION_URL = "http://localhost:8080/login/auth"
+let REGISTRATION_URL = "nouveau-app.azurewebsites.net/login/auth";
+//let REGISTRATION_URL = "http://localhost:8080/login/auth"
 export default function DuoEnroll() {
     const searchParams = new URLSearchParams(window?.location?.search);
     const userid = searchParams.get('userid')
