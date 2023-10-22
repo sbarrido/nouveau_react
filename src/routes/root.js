@@ -6,6 +6,8 @@ import {
   Navbar,
   NavbarBrand,
   NavbarText,
+  NavItem,
+  NavLink,
   Container,
   Card,
   CardBody,
@@ -103,7 +105,11 @@ export default function Root(args) {
             />
             Nouveau Health
           </NavbarBrand>
-          <NavbarText>Login</NavbarText>
+          <NavItem>
+            <NavLink href="/login">
+              <NavbarText>Login</NavbarText>
+            </NavLink>
+          </NavItem>
         </Navbar>
         <Carousel
             activeIndex={activeIndex}
