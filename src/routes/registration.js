@@ -6,7 +6,7 @@ import logo from './../img/Nouveau Health-logos_white.png';
 import {Navbar, NavbarBrand, NavbarText, Button, Col, Form, FormGroup, Input, Label, Row} from 'reactstrap';
 import axios from 'axios';
 
-let REGISTRATION_URL = "nouveau-app.azurewebsites.net/registration";
+let REGISTRATION_URL = "http://nouveau-app.azurewebsites.net/registration";
 //let REGISTRATION_URL = "http://localhost:8080/registration"
 export default function Registration() {
     const uniqueUser = async (email) => {
