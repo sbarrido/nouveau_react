@@ -30,13 +30,12 @@ export default function Registration() {
         }
 
         // check email is unique w/ api call - say unsuccessful if it is unsuccessful
-        try {
-            
+     
         // check password (any parameters, equal to confirm) - say unsuccessful if it is unsuccessful
         if (password !== confirm) {
             alert('Registration failed. Passwords do not match.');
             return;
-        }
+    
 
         // encrypt/tokenize password
 
