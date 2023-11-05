@@ -35,7 +35,7 @@ export default function Registration() {
         if (password !== confirm) {
             alert('Registration failed. Passwords do not match.');
             return;
-    
+        }
 
         // encrypt/tokenize password
 
