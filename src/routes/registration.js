@@ -9,10 +9,6 @@ import axios from 'axios';
 let REGISTRATION_URL = "https://nouveau-app.azurewebsites.net/registration";
 //let REGISTRATION_URL = "http://localhost:8080/registration"
 export default function Registration() {
-    const uniqueUser = async (email) => {
-        const unique = await axios.get(REGISTRATION_URL+'/'+email);
-        return unique.data?.unique;
-    }
 
     const navigate = useNavigate();
 
@@ -35,17 +31,7 @@ export default function Registration() {
 
         // check email is unique w/ api call - say unsuccessful if it is unsuccessful
         try {
-            const unique = await uniqueUser(email);
-            if (!unique) {
-                alert('Registration failed. Account already exists for email')
-                return;
-            }
-        } catch (error) {
-            console.log(error)
-            alert('Registration failed. API Call failed. Please try again')
-            return;
-        }
-
+            
         // check password (any parameters, equal to confirm) - say unsuccessful if it is unsuccessful
         if (password !== confirm) {
             alert('Registration failed. Passwords do not match.');
