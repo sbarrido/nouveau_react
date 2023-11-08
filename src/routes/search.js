@@ -95,7 +95,7 @@ export default function Search() {
 
     const appointmentRedirect = (doctorid) => {
         navigate({
-            pathname: "booking",
+            pathname: "../appointment",
             search: '?' + createSearchParams({
                 userid: userid,
                 doctorid: doctorid
@@ -107,6 +107,7 @@ export default function Search() {
         <>
             <PatientNav />
             <div style={{marginTop: "2%", marginLeft: "5%", marginRight: "5%", display: "block", textAlign: "left"}}>
+                <h2>Search for Doctors</h2>
                 <Form onSubmit={handleSubmit} method="post" style={{display: 'inline-block', width:"100%"}}>
                     <input style={{width:"70%"}} type="text" value={searchTerms} onChange={(e) => setSearchTerms(e.target.value)} placeholder="Search by doctor name or specialization"/>
                     <button type="submit">Search</button>
