@@ -20,7 +20,7 @@ export default function PatientNav (props) {
     }
 
     return (
-        <Calendar minDate={getMinDate()} onClickDay={dayClick}>
+        <Calendar minDate={getMinDate()} onClickDay={dayClick} tileDisabled={props.tileDisabled} value={props.value}>
         </Calendar>
     )
 }
