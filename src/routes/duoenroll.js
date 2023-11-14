@@ -7,7 +7,7 @@ import {Navbar, NavbarBrand, NavbarText, Button, Col, Form, FormGroup, Input, La
 import axios from 'axios';
 import { act } from 'react-dom/test-utils';
 
-let REGISTRATION_URL = "nouveau-app.azurewebsites.net/registration/enroll";
+let REGISTRATION_URL = "https://nouveau-app.azurewebsites.net/registration";
 //let REGISTRATION_URL = "http://localhost:8080/registration"
 export default function DuoEnroll() {
     const searchParams = new URLSearchParams(window?.location?.search);

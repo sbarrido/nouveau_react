@@ -7,8 +7,8 @@ import PatientNav from '../components/PatientNav'
 import BookingCalendar from '../components/BookingCalendar'
 import axios from 'axios';
 
-//let APPOINTMENT_URL = "https://nouveau-app.azurewebsites.net/appointment";
-let APPOINTMENT_URL = "http://localhost:8080/appointment";
+let APPOINTMENT_URL = "https://nouveau-app.azurewebsites.net/appointment";
+//let APPOINTMENT_URL = "http://localhost:8080/appointment";
 export default function Appointment() {
     const searchParams = new URLSearchParams(window?.location?.search);
     const patientid = parseInt(searchParams.get('userid'));

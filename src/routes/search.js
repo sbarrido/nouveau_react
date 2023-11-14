@@ -6,8 +6,8 @@ import ReactDOM from 'react-dom/client';
 import PatientNav from '../components/PatientNav'
 import axios from 'axios';
 
-//let SEARCH_URL = "nouveau-app.azurewebsites.net/search";
-let SEARCH_URL = "http://localhost:8080/search";
+let SEARCH_URL = "https://nouveau-app.azurewebsites.net/search";
+//let SEARCH_URL = "http://localhost:8080/search";
 export default function Search() {
     const searchParams = new URLSearchParams(window?.location?.search);
     const userid = searchParams.get('userid')
