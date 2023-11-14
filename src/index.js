@@ -44,10 +44,6 @@ const router = createBrowserRouter([
   {
     path:"appointment",
     element: <Appointment />
-  },
-  {
-    path:"appointment/booking",
-    element: <Booking />
   }
 ]);
 
