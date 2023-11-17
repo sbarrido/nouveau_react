@@ -1,0 +1,38 @@
+.chat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.chatBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 500px;
+  width: 500px;
+  background-color: #696c7c;
+  border: 3px solid black;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.chatSend {
+  width: 100%;
+}
+
+.chatBox input {
+  width: 83%;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.sendButton {
+  background-color: transparent;
+  border: 1px solid black;
+  color: #fefbef;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  width: 15%; /* Large, mobile-friendly touch target */
+}
