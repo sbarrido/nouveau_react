@@ -9,7 +9,7 @@ import {
     NavLink,
 } from 'reactstrap';
 
-export default function PatientNav (props) {
+export default function BookingCalendar (props) {
     const dayClick = props.onClickDay
 
     const getMinDate = () => {

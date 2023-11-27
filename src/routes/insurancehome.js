@@ -6,11 +6,12 @@ import logo from './../img/Nouveau Health-logos_white.png';
 import {Navbar, NavbarBrand, NavbarText, Button, Col, Form, FormGroup, Input, Label, Row, Spinner} from 'reactstrap';
 import axios from 'axios';
 import InsuranceNav from '../components/InsuranceNav'
+import Dashboard from '../components/Dashboard';
 import { act } from 'react-dom/test-utils';
 
 let INSURANCE_URL = "https://nouveau-app.azurewebsites.net/insurance";
 //let INSURANCE_URL = "http://localhost:8080/insurance"
-export default function InsuranceDashboard() {
+export default function InsuranceHome() {
     const searchParams = new URLSearchParams(window?.location?.search);
     const userid = parseInt(searchParams.get('userid'));
     const [plans, setPlans] = useState([]);
@@ -81,7 +82,7 @@ export default function InsuranceDashboard() {
 //render() {
     return (
         <>
-            <InsuranceNav />
+            <Dashboard role='insurance'/>
             <div style={{marginTop: "2%", marginLeft: "5%", marginRight: "5%", display: "block", textAlign: "left"}}>
 
                 <h2 style={{marginLeft: ".5%"}}>Dashboard</h2>

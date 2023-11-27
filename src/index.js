@@ -11,7 +11,7 @@ import Registration from "./routes/registration";
 import DuoEnroll from "./routes/duoenroll"
 import Login from "./routes/login"
 import DuoAuth from "./routes/duoauth"
-import InsuranceDashboard from "./routes/insurancedashboard";
+import InsuranceHome from "./routes/insurancehome";
 import Search from "./routes/search"
 import Appointment from "./routes/appointment"
 
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
   },
   {
     path:"insurance",
-    element: <InsuranceDashboard />
+    element: <InsuranceHome />
   }, 
   {
     path:"search",
