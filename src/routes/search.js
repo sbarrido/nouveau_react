@@ -7,8 +7,8 @@ import PatientNav from '../components/PatientNav'
 import axios from 'axios';
 import Dashboard from '../components/Dashboard';
 
-//let SEARCH_URL = "https://nouveau-app.azurewebsites.net/search";
-let SEARCH_URL = "http://localhost:8080/search";
+let SEARCH_URL = "https://nouveau-app.azurewebsites.net/search";
+//let SEARCH_URL = "http://localhost:8080/search";
 export default function Search() {
     //const searchParams = new URLSearchParams(window?.location?.search);
     //const userid = searchParams.get('userid')
