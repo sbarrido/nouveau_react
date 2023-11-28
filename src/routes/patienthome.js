@@ -8,11 +8,12 @@ import axios from 'axios';
 import Dashboard from '../components/Dashboard';
 import { act } from 'react-dom/test-utils';
 
-let INSURANCE_URL = "https://nouveau-app.azurewebsites.net/patient";
-//let INSURANCE_URL = "http://localhost:8080/patient"
+//let INSURANCE_URL = "https://nouveau-app.azurewebsites.net/patient";
+let INSURANCE_URL = "http://localhost:8080/patient"
 export default function PatientHome() {
-    const searchParams = new URLSearchParams(window?.location?.search);
-    const userid = parseInt(searchParams.get('userid'));
+    //const searchParams = new URLSearchParams(window?.location?.search);
+    //const userid = parseInt(searchParams.get('userid'));
+    const userid = Number(sessionStorage.getItem('userid'))
     const [plan, setPlan] = useState(null);
     const [doctors, setDoctors] = useState([]);
     const [upcoming, setUpcoming] = useState([]);
@@ -129,7 +130,7 @@ export default function PatientHome() {
             <Dashboard role='patient'/>
             <div style={{marginTop: "2%", marginLeft: "5%", marginRight: "5%", display: "block", textAlign: "left"}}>
 
-                <h1 style={{marginLeft: ".5%"}}>Home</h1>
+                <h1 style={{marginLeft: ".5%"}}>Home - {sessionStorage.getItem("name")}</h1>
 
                 <hr/>
                 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import {createSearchParams, Link, useNavigate} from 'react-router-dom'
+import {createSearchParams, Link, useNavigate, useLocation} from 'react-router-dom'
 import {Form, FormGroup, Input, Label, Spinner, Button} from 'reactstrap';
 import ReactDOM from 'react-dom/client';
 import PatientNav from '../components/PatientNav'
@@ -8,12 +8,18 @@ import BookingCalendar from '../components/BookingCalendar'
 import axios from 'axios';
 import Dashboard from '../components/Dashboard';
 
-let APPOINTMENT_URL = "https://nouveau-app.azurewebsites.net/appointment";
-//let APPOINTMENT_URL = "http://localhost:8080/appointment";
+//let APPOINTMENT_URL = "https://nouveau-app.azurewebsites.net/appointment";
+let APPOINTMENT_URL = "http://localhost:8080/appointment";
 export default function Appointment() {
     const searchParams = new URLSearchParams(window?.location?.search);
-    const patientid = parseInt(searchParams.get('userid'));
-    const doctorid = parseInt(searchParams.get('doctorid'));
+    //const location = useLocation()
+    const navigate = useNavigate();
+
+    //const patientid = parseInt(searchParams.get('userid'));
+    const patientid = Number(sessionStorage.getItem('userid'))
+    //const doctorid = doctorid === null ? parseInt(searchParams.get('doctorid')) : doctorid;
+    const doctorid = Number(sessionStorage.getItem('apptdoctorid'))
+    //const doctorid = Number(location.state.doctorid);
 
     const today = new Date;
     const tomorrow = new Date;
@@ -41,6 +47,20 @@ export default function Appointment() {
     const [travel, setTravel] = useState(false);
 
     useEffect(() => {
+        if(sessionStorage.getItem('userid') === null) {
+            alert("You need to log in to access this page")
+            sessionStorage.clear()
+            navigate("../")
+        }
+
+        if(sessionStorage.getItem('apptdoctorid') === null) {
+            alert('No doctor selected. Returning to doctor search')
+            navigate('../search')
+        }
+
+
+        console.log(patientid)
+        console.log(doctorid)
         if(!gotAppointments) {
             gotAppointments = true;
 
@@ -50,7 +70,6 @@ export default function Appointment() {
         }
     }, []);
 
-    const navigate = useNavigate();
 
     const getUnavailableDays = () => {
         axios({
@@ -128,6 +147,8 @@ export default function Appointment() {
         .then((response) => {
             console.log(response.data);
             alert("Appointment successfully created");
+            sessionStorage.removeItem('apptdoctorid');
+            navigate('../patient')
         }, (error) => {
             console.log(error);
             alert(error.response.data);

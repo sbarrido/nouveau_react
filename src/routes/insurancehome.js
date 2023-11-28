@@ -9,11 +9,12 @@ import InsuranceNav from '../components/InsuranceNav'
 import Dashboard from '../components/Dashboard';
 import { act } from 'react-dom/test-utils';
 
-let INSURANCE_URL = "https://nouveau-app.azurewebsites.net/insurance";
-//let INSURANCE_URL = "http://localhost:8080/insurance"
+//let INSURANCE_URL = "https://nouveau-app.azurewebsites.net/insurance";
+let INSURANCE_URL = "http://localhost:8080/insurance"
 export default function InsuranceHome() {
-    const searchParams = new URLSearchParams(window?.location?.search);
-    const userid = parseInt(searchParams.get('userid'));
+    //const searchParams = new URLSearchParams(window?.location?.search);
+    //const userid = parseInt(searchParams.get('userid'));
+    const userid = Number(sessionStorage.getItem('userid'))
     const [plans, setPlans] = useState([]);
     const [patients, setPatients] = useState([]);
     const [patientLoading, setPatientLoading] = useState(false);
@@ -85,7 +86,7 @@ export default function InsuranceHome() {
             <Dashboard role='insurance'/>
             <div style={{marginTop: "2%", marginLeft: "5%", marginRight: "5%", display: "block", textAlign: "left"}}>
 
-                <h1 style={{marginLeft: ".5%"}}>Home</h1>
+                <h1 style={{marginLeft: ".5%"}}>Home - {sessionStorage.getItem("name")}</h1>
 
                 <hr/>
                 

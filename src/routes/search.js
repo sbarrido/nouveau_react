@@ -7,11 +7,12 @@ import PatientNav from '../components/PatientNav'
 import axios from 'axios';
 import Dashboard from '../components/Dashboard';
 
-let SEARCH_URL = "https://nouveau-app.azurewebsites.net/search";
-//let SEARCH_URL = "http://localhost:8080/search";
+//let SEARCH_URL = "https://nouveau-app.azurewebsites.net/search";
+let SEARCH_URL = "http://localhost:8080/search";
 export default function Search() {
-    const searchParams = new URLSearchParams(window?.location?.search);
-    const userid = searchParams.get('userid')
+    //const searchParams = new URLSearchParams(window?.location?.search);
+    //const userid = searchParams.get('userid')
+    const userid = Number(sessionStorage.getItem('userid'))
     const [searchTerms, setSearchTerms] = useState('');
     const [supportCovid, setSupportCovid] = useState(false);
     var search = '';
@@ -95,13 +96,17 @@ export default function Search() {
     }
 
     const appointmentRedirect = (doctorid) => {
+        /*
         navigate({
             pathname: "../appointment",
             search: '?' + createSearchParams({
-                userid: userid,
                 doctorid: doctorid
             })
         })
+        */
+
+        sessionStorage.setItem('apptdoctorid', doctorid)
+        navigate("../appointment")
     }
 
     return (
