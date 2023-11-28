@@ -17,8 +17,8 @@ export const InsuranceNavbarData = [
     class: "nav-text",
     },
     {
-    title: "Insurance",
-    path: "/insurance",
+    title: "Insurance Plans",
+    path: "/insurance/plans",
     icon: <AiIcons.AiFillInsurance />,
     class: "nav-text",
     },
