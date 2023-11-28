@@ -14,6 +14,8 @@ import DuoAuth from "./routes/duoauth"
 import InsuranceHome from "./routes/insurancehome";
 import Search from "./routes/search"
 import Appointment from "./routes/appointment"
+import PatientHome from "./routes/patienthome";
+import DoctorHome from "./routes/doctorhome";
 
 
 const router = createBrowserRouter([
@@ -48,6 +50,14 @@ const router = createBrowserRouter([
   {
     path:"appointment",
     element: <Appointment />
+  }, 
+  {
+    path:"doctor",
+    element: <DoctorHome />
+  },
+  {
+    path:"patient",
+    element: <PatientHome />
   }
 ]);
 

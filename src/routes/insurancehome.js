@@ -85,51 +85,67 @@ export default function InsuranceHome() {
             <Dashboard role='insurance'/>
             <div style={{marginTop: "2%", marginLeft: "5%", marginRight: "5%", display: "block", textAlign: "left"}}>
 
-                <h2 style={{marginLeft: ".5%"}}>Dashboard</h2>
+                <h1 style={{marginLeft: ".5%"}}>Home</h1>
 
                 <hr/>
                 
                 <div>
-                    <h3 style={{marginLeft: ".5%"}}>Insurance Plans</h3>
-                    <table style={{tableLayout:"fixed", width:"100%", border: "1px solid"}}>
-                        <tbody>
-                        {plans.map((plan, i) => (
-                        <tr key={i} style={{border: ".75px solid", borderColor: "gray"}}>
-                            <td>
-                                <div style={{float: "left", width:"49%", marginLeft: ".5%"}}>
-                                    <p style={{marginBottom: "0px", fontSize: "16pt"}}>{plan.name} </p>
-                                    <p style={{marginBottom: "0px", fontSize: "14pt"}}>${plan.monthlyrate}/mo</p>
-                                </div>
-                                <div style={{float: "right", width:"49%", textAlign:"right", marginRight: ".5%"}}>
-                                    <p style={{marginBottom: "0px", fontSize: "12pt"}}>Deductible: ${plan.deductible} </p>
-                                    <p style={{marginBottom: "0px", fontSize: "12pt"}}>Primary Care Copay: ${plan.physiciancopay}</p>
-                                    <p style={{marginBottom: "0px", fontSize: "12pt"}}>Pharmacy Copay: ${plan.pharmacopay}</p>
-                                </div>
-                            </td>
-                        </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                    <h3 style={{marginLeft: ".5%"}}>My Insurance Plans</h3>
+
+                    {plans.length === 0
+                    ? 
+                        <div style={{width:"100%", border: "1px solid", marginBottom:"25px", overflow:"auto", padding:"1%"}}>
+                            <p>You do not have any insurance plans</p>
+                        </div>
+                    :
+                        <table style={{tableLayout:"fixed", width:"100%", border: "1px solid"}}>
+                            <tbody>
+                            {plans.map((plan, i) => (
+                            <tr key={i} style={{border: ".75px solid", borderColor: "gray"}}>
+                                <td>
+                                    <div style={{float: "left", width:"49%", marginLeft: ".5%"}}>
+                                        <p style={{marginBottom: "0px", fontSize: "16pt"}}>{plan.name} </p>
+                                        <p style={{marginBottom: "0px", fontSize: "14pt"}}>${plan.monthlyrate}/mo</p>
+                                    </div>
+                                    <div style={{float: "right", width:"49%", textAlign:"right", marginRight: ".5%"}}>
+                                        <p style={{marginBottom: "0px", fontSize: "12pt"}}>Deductible: ${plan.deductible} </p>
+                                        <p style={{marginBottom: "0px", fontSize: "12pt"}}>Primary Care Copay: ${plan.physiciancopay}</p>
+                                        <p style={{marginBottom: "0px", fontSize: "12pt"}}>Pharmacy Copay: ${plan.pharmacopay}</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    }
                 </div>
 
 
 
                 <div>
-                    <h3 style={{marginLeft: ".5%"}}> Patients</h3>
-                    <table style={{tableLayout:"fixed", width:"100%"}}>
-                    <tbody>
-                        {patients.map((patient, i) => (
-                        <tr key={i} style={{border: "1px solid"}}>
-                            <td>
-                                <div style = {{marginLeft: ".5%"}}>
-                                    <p style={{marginBottom: "0px", fontSize: "16pt"}}>{patient.patientname} </p>
-                                    <p style={{marginBottom: "0px", fontSize: "14pt"}}>{patient.planname} </p>
-                                </div>
-                            </td>
-                        </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                    <h3 style={{marginLeft: ".5%"}}>My Patients</h3>
+
+                    {patients.length === 0
+                    ? 
+                        <div style={{width:"100%", border: "1px solid", marginBottom:"25px", overflow:"auto", padding:"1%"}}>
+                            <p>You do not have any patients yet</p>
+                        </div>
+                    :
+                        <table style={{tableLayout:"fixed", width:"100%"}}>
+                        <tbody>
+                            {patients.map((patient, i) => (
+                            <tr key={i} style={{border: "1px solid"}}>
+                                <td>
+                                    <div style = {{marginLeft: ".5%"}}>
+                                        <p style={{marginBottom: "0px", fontSize: "16pt"}}>{patient.patientname} </p>
+                                        <p style={{marginBottom: "0px", fontSize: "14pt"}}>{patient.planname} </p>
+                                    </div>
+                                </td>
+                            </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    }
                 </div>
 
             </div>
