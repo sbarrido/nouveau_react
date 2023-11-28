@@ -5,6 +5,7 @@ import {Form, Label, Spinner, Button} from 'reactstrap';
 import ReactDOM from 'react-dom/client';
 import PatientNav from '../components/PatientNav'
 import axios from 'axios';
+import Dashboard from '../components/Dashboard';
 
 let SEARCH_URL = "https://nouveau-app.azurewebsites.net/search";
 //let SEARCH_URL = "http://localhost:8080/search";
@@ -105,7 +106,7 @@ export default function Search() {
 
     return (
         <>
-            <PatientNav />
+            <Dashboard role='patient'/>
             <div style={{marginTop: "2%", marginLeft: "5%", marginRight: "5%", display: "block", textAlign: "left"}}>
                 <h2>Search for Doctors</h2>
                 <Form onSubmit={handleSubmit} method="post" style={{display: 'inline-block', width:"100%"}}>
