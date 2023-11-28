@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom/client';
 import PatientNav from '../components/PatientNav'
 import BookingCalendar from '../components/BookingCalendar'
 import axios from 'axios';
+import Dashboard from '../components/Dashboard';
 
 let APPOINTMENT_URL = "https://nouveau-app.azurewebsites.net/appointment";
 //let APPOINTMENT_URL = "http://localhost:8080/appointment";
@@ -182,7 +183,7 @@ export default function Appointment() {
 
     return (
         <>
-            <PatientNav />
+            <Dashboard role='patient'/>
             <div style={{textAlign: "left", width: "95%", marginLeft: "2.50%", marginRight: "2.5%", marginTop: "1%", marginBottom: "2.5%"}}>
                 <h2>Book Appointment</h2>
                 <div style={{marginTop:"25px", width: "75%"}}>
