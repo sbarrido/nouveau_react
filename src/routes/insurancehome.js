@@ -20,12 +20,25 @@ export default function InsuranceHome() {
     const [patientLoading, setPatientLoading] = useState(false);
     const [plansLoading, setPlansLoading] = useState(false);
     let call = true;
+    let firstload = true;
 
     const navigate = useNavigate();   
     
 
     useEffect(() => {
         //const abortController = new AbortController();
+        if(firstload) {
+            firstload = false;
+            if(sessionStorage.getItem('userid') === null) {
+                alert("You need to log in to access this page")
+                sessionStorage.clear()
+                navigate("../")
+            }
+            else if(sessionStorage.getItem('role') !== 'insurance') {
+                alert("You do not have access to this page")
+                navigate(`../${sessionStorage.getItem('role')}`)
+            }
+        }
 
         if(call) {
             console.log(userid);

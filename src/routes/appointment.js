@@ -46,16 +46,24 @@ export default function Appointment() {
     const [contact, setContact] = useState(false);
     const [travel, setTravel] = useState(false);
 
-    useEffect(() => {
-        if(sessionStorage.getItem('userid') === null) {
-            alert("You need to log in to access this page")
-            sessionStorage.clear()
-            navigate("../")
-        }
+    let firstload = true;
 
-        if(sessionStorage.getItem('apptdoctorid') === null) {
-            alert('No doctor selected. Returning to doctor search')
-            navigate('../search')
+    useEffect(() => {
+        if(firstload) { 
+            firstload = false; 
+            if(sessionStorage.getItem('userid') === null) {
+                alert("You need to log in to access this page")
+                sessionStorage.clear()
+                navigate("../")
+            }
+            else if(sessionStorage.getItem('role') !== 'patient') {
+                alert("You do not have access to this page")
+                navigate(`../${sessionStorage.getItem('role')}`)
+            }
+            else if(sessionStorage.getItem('apptdoctorid') === null) {
+                alert('No doctor selected. Returning to doctor search')
+                navigate('../search')
+            }
         }
 
 

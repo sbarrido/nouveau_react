@@ -20,10 +20,22 @@ export default function Search() {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
     var searched = false;
+    let firstload = true;
 
     useEffect(() => {
-
-    });
+        if(firstload) {
+            firstload = false;
+            if(sessionStorage.getItem('userid') === null) {
+                alert("You need to log in to access this page")
+                sessionStorage.clear()
+                navigate("../")
+            }
+            else if(sessionStorage.getItem('role') !== 'patient') {
+                alert("You do not have access to this page")
+                navigate(`../${sessionStorage.getItem('role')}`)
+            }
+        }
+    }, []);
 
     const navigate = useNavigate();
 
