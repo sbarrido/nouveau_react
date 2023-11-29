@@ -10,8 +10,9 @@ import Dashboard from '../components/Dashboard';
 let SEARCH_URL = "https://nouveau-app.azurewebsites.net/search";
 //let SEARCH_URL = "http://localhost:8080/search";
 export default function Search() {
-    const searchParams = new URLSearchParams(window?.location?.search);
-    const userid = searchParams.get('userid')
+    //const searchParams = new URLSearchParams(window?.location?.search);
+    //const userid = searchParams.get('userid')
+    const userid = Number(sessionStorage.getItem('userid'))
     const [searchTerms, setSearchTerms] = useState('');
     const [supportCovid, setSupportCovid] = useState(false);
     var search = '';
@@ -19,10 +20,22 @@ export default function Search() {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);
     var searched = false;
+    let firstload = true;
 
     useEffect(() => {
-
-    });
+        if(firstload) {
+            firstload = false;
+            if(sessionStorage.getItem('userid') === null) {
+                alert("You need to log in to access this page")
+                sessionStorage.clear()
+                navigate("../")
+            }
+            else if(sessionStorage.getItem('role') !== 'patient') {
+                alert("You do not have access to this page")
+                navigate(`../${sessionStorage.getItem('role')}`)
+            }
+        }
+    }, []);
 
     const navigate = useNavigate();
 
@@ -95,13 +108,17 @@ export default function Search() {
     }
 
     const appointmentRedirect = (doctorid) => {
+        /*
         navigate({
             pathname: "../appointment",
             search: '?' + createSearchParams({
-                userid: userid,
                 doctorid: doctorid
             })
         })
+        */
+
+        sessionStorage.setItem('apptdoctorid', doctorid)
+        navigate("../appointment")
     }
 
     return (

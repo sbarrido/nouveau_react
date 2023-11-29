@@ -38,10 +38,16 @@ export default function Login() {
             }
         })
         .then((response) => {
+            sessionStorage.setItem("userid", response.data.userid)
+            sessionStorage.setItem("name", response.data.name)
+            sessionStorage.setItem("email", response.data.email)
+            sessionStorage.setItem("role", response.data.role)
+            console.log(sessionStorage)
             if(!response.data.mfa) {
                 alert('Logging you in...')
-
-                // redirect
+                navigate({
+                    pathname: "../" + response.data.role,
+                })
             } else {
                 var result = response.data.response.result
                 if(result == 'auth') {
@@ -57,11 +63,16 @@ export default function Login() {
                     alert('Logging you in...')
 
                     // redirect
+                    navigate({
+                        pathname: response.data.role,
+                    })
                 } else if (result == "deny") {
                     alert('Access denied: ' + response.data.response.status_msg)
+                    sessionStorage.clear()
                     navigate('../')
                 } else { // result == "enroll" -- shouldn't happen normally, just deny for now (in future either prompt them to enroll or set mfa to false and log them in)
                     alert('Access denied')
+                    sessionStorage.clear()
                     navigate('../')
                 }
             }
