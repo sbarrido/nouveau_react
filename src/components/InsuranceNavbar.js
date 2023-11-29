@@ -12,7 +12,7 @@ export const InsuranceNavbarData = [
     },
     {
     title: "Profile",
-    path: "http://localhost:3000/patientdashboard/insuranceprofile",
+    path: "/insurance/profile",
     icon: <AiIcons.AiFillProfile />,
     class: "nav-text",
     },

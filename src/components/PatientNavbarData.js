@@ -12,7 +12,7 @@ export const PatientNavbarData = [
     },
     {
         title: "Profile",
-        path: "http://localhost:3000/patientdashboard/patientprofile",
+        path: "/patient/profile",
         icon: <AiIcons.AiFillProfile />,
         class: "nav-text",
     },

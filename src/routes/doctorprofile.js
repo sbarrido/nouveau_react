@@ -8,16 +8,16 @@ import axios from 'axios';
 import Dashboard from '../components/Dashboard';
 import { act } from 'react-dom/test-utils';
 
-//let INSURANCE_URL = "https://nouveau-app.azurewebsites.net/doctor";
-let INSURANCE_URL = "http://localhost:8080/doctor"
-export default function DoctorHome() {
+//let INSURANCE_URL = "https://nouveau-app.azurewebsites.net/profile/doctor";
+let INSURANCE_URL = "http://localhost:8080/profile/doctor"
+export default function DoctorProfile() {
     //const searchParams = new URLSearchParams(window?.location?.search);
     //const userid = parseInt(searchParams.get('userid'));
     const userid = Number(sessionStorage.getItem('userid'))
-    const [upcoming, setUpcoming] = useState([]);
-    const [patients, setPatients] = useState([]);
-    const [patientLoading, setPatientLoading] = useState(false);
-    const [upcomingLoading, setUpcomingLoading] = useState(false);
+    const [oldProfile, setOldProfile] = useState(null);
+    const [newProfile, setNewProfile] = useState(null);
+    const [oldLoading, setOldLoading] = useState(false);
+    const [newLoading, setNewLoading] = useState(false);
     let call = true;
     let firstload = true;
 
@@ -43,38 +43,37 @@ export default function DoctorHome() {
         if(call) {
             console.log(userid);
             call = false;
-            //getPatients();
-            getUpcoming();
+            getNewProfile();
+            getOldProfile();
         }       
           
         //return () => { abortController.abort();}
     }, []);
 
-/*
-    const getPatients = () => {
-        setPatientLoading(true);
+
+    const getNewProfile = () => {
+        setNewLoading(true);
         axios({
             method: 'post',
-            url: INSURANCE_URL + "/patients",
+            url: INSURANCE_URL,
             data: {
                 doctorid: userid
             }
         })
         .then((response) => {
-            setPatients(response.data);
-            setPatientLoading(false);
+            setNewProfile(response.data);
+            setNewLoading(false);
             console.log(response.data);
         }, (error) => {
             console.log(error);
             alert(error.response.data);
-            setPatientLoading(false);
+            setNewLoading(false);
         });
     }
-    */
 
 
-    const getUpcoming = () => {
-        setUpcomingLoading(true);
+    const getOldProfile = () => {
+        setNewLoading(true);
         axios({
             method: 'post',
             url: INSURANCE_URL + "/upcoming",
@@ -83,38 +82,22 @@ export default function DoctorHome() {
             }
         })
         .then((response) => {
-            setUpcoming(response.data);
-            setUpcomingLoading(false);
+            setOldProfile(response.data);
+            setOldLoading(false);
             console.log(response.data);
         }, (error) => {
             console.log(error);
             alert(error.response.data);
-            setUpcomingLoading(false);
+            setOldLoading(false);
         });
     }
 
-
-    const createTimeString = (time) => {
-        let hour = (new Date(time)).getHours();
-        let ampm = "AM";
-        if(hour > 11) {
-            ampm = "PM"
-        }
-        if(hour > 12) {
-            hour -= 12;
-        }
-
-        return `${hour}:00 ${ampm} - ${hour}:45 ${ampm}`;
-    }
-
-
-//render() {
     return (
         <>
             <Dashboard role='doctor'/>
             <div style={{marginTop: "2%", marginLeft: "5%", marginRight: "5%", display: "block", textAlign: "left"}}>
 
-                <h1 style={{marginLeft: ".5%"}}>Home - {sessionStorage.getItem("name")}</h1>
+                <h1 style={{marginLeft: ".5%"}}>Edit Profile</h1>
 
                 <hr/>
                 
@@ -142,7 +125,7 @@ export default function DoctorHome() {
 
                 <div>
                     <h3 style={{marginLeft: ".5%"}}>Upcoming Appointments</h3>
-                        {upcoming.length === 0
+                        {oldProfile.length === 0
                         ? 
                             <div style={{width:"100%", border: "1px solid", marginBottom:"25px", overflow:"auto", padding:"1%"}}>
                                 <p>No upcoming appointments</p>
@@ -150,12 +133,12 @@ export default function DoctorHome() {
                         :
                             <table style={{tableLayout:"fixed", width:"100%", border: "1px solid", marginBottom:"25px"}}>
                                 <tbody>
-                                {upcoming.map((appt, i) => (
+                                {oldProfile.map((appt, i) => (
                                 <tr key={i} style={{border: ".75px solid", borderColor: "gray"}}>
                                     <td>
                                         <div style={{float: "left", width:"49%", marginLeft: ".5%"}}>
                                             <p style={{marginBottom: "0px", fontSize: "16pt"}}>{(new Date(appt.date)).toDateString()} </p>
-                                            <p style={{marginBottom: "0px", fontSize: "14pt"}}>{createTimeString(appt.date)}</p>
+                                            <p style={{marginBottom: "0px", fontSize: "14pt"}}>{}</p>
                                         </div>
                                         <div style={{float: "right", width:"49%", textAlign:"right", marginRight: ".5%"}}>
                                             <p style={{marginBottom: "0px", fontSize: "14pt"}}>{appt.patientname} </p>
