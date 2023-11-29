@@ -1,0 +1,22 @@
+.chat-height {
+  height: calc(100% - 20vh) !important;
+}
+
+.chat-message-right,
+.chat-message-left {
+  display: flex;
+  flex-shrink: 0;
+}
+.chat-message-left {
+  margin-right: auto;
+}
+
+.chat-message-right {
+  margin-left: auto;
+  flex-direction: row-reverse;
+}
+.styles_scrollable-div__prSCv {
+  max-height: calc(100% - 2px) !important;
+  height: calc(100% - 2px) !important;
+  overflow-y: auto;
+}
