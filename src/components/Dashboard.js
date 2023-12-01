@@ -2,21 +2,28 @@ import "../css/dashboard.css";
 import React, { useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
+import * as IoIcons from "react-icons/io";
 import { PatientNavbarData } from "./PatientNavbarData";
 import { DoctorNavbarData } from "./DoctorNavbarData";
 import { InsuranceNavbarData } from "./InsuranceNavbar";
 import { IconContext } from "react-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const isPatient = false;
 
 const Dashboard = (props) => {
   const [sidebar, setsidebar] = useState(false);
+  const navigate = useNavigate();
 
   const role = props.role;
 
   const showSideBar = () => {
     setsidebar(!sidebar);
   };
+
+  const logout = () => {
+    sessionStorage.clear();
+    navigate('/')
+  }
 
   return (
     <>
@@ -66,6 +73,12 @@ const Dashboard = (props) => {
                   );
                 })
             }
+            <li className='nav-text'>
+                <Link onClick={logout}>
+                    <IoIcons.IoIosLogOut />
+                    <span>Log out</span>
+                </Link>
+            </li>
           </ul>
         </nav>
       </IconContext.Provider>

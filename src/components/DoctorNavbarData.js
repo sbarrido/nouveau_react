@@ -12,19 +12,19 @@ export const DoctorNavbarData = [
     },
     {
         title: "Profile",
-        path: "http://localhost:3000/doctordashboard/doctorprofile",
+        path: "/doctor/profile",
         icon: <AiIcons.AiFillProfile />,
         class: "nav-text",
     },
     {
         title: "Patients Details",
-        path: "http://localhost:3000/doctordashboard/patientdetails",
+        path: "/doctordashboard/patientdetails",
         icon: <AiIcons.AiFillCalendar />,
         class: "nav-text",
     },
     {
         title: "Chat",
-        path: "http://localhost:3000/doctordashboard/doctorchat",
+        path: "/doctordashboard/doctorchat",
         icon: <AiIcons.AiFillWechat />,
         class: "nav-text",
     },

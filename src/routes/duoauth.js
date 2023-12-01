@@ -46,6 +46,9 @@ export default function DuoEnroll() {
                 if(res.data.response.result == "allow") {
                     // redirect
                     alert("log in")
+                    navigate({
+                        pathname: "../../" + role,
+                    })
                 } else if (res.data.response.result == "deny") {
                     alert("fail")
                     navigate('../..')
