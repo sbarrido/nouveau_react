@@ -8,9 +8,9 @@ import axios from 'axios';
 import Dashboard from '../components/Dashboard';
 import { act } from 'react-dom/test-utils';
 
-let PATIENTPROFILE_URL = "https://nouveau-app.azurewebsites.net/profile/patient";
-//let PATIENTPROFILE_URL = "http://localhost:8080/profile/patient"
-export default function PatientProfile() {
+let INSURANCEPROFILE_URL = "https://nouveau-app.azurewebsites.net/profile/insurance";
+//let INSURANCEPROFILE_URL = "http://localhost:8080/profile/insurance"
+export default function InsuranceProfile() {
     //const searchParams = new URLSearchParams(window?.location?.search);
     //const userid = parseInt(searchParams.get('userid'));
     const userid = Number(sessionStorage.getItem('userid'))
@@ -45,7 +45,7 @@ export default function PatientProfile() {
                 sessionStorage.clear()
                 navigate("../")
             }
-            else if(sessionStorage.getItem('role') !== 'patient') {
+            else if(sessionStorage.getItem('role') !== 'insurance') {
                 alert("You do not have access to this page")
                 navigate(`../${sessionStorage.getItem('role')}`)
             }
@@ -90,7 +90,7 @@ export default function PatientProfile() {
         setNewLoading(true);
         axios({
             method: 'post',
-            url: PATIENTPROFILE_URL + "/update",
+            url: INSURANCEPROFILE_URL + "/update",
             data: {
                 userid: userid,
                 name: newProfile.name,
@@ -161,7 +161,7 @@ export default function PatientProfile() {
 
     return (
         <>
-            <Dashboard role='patient'/>
+            <Dashboard role='insurance'/>
             <div style={{marginTop: "2%", marginLeft: "5%", marginRight: "5%", display: "block", textAlign: "left"}}>
 
                 <h1 style={{marginLeft: ".5%"}}>Edit Profile</h1>

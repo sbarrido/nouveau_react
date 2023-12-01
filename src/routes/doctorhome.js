@@ -8,8 +8,8 @@ import axios from 'axios';
 import Dashboard from '../components/Dashboard';
 import { act } from 'react-dom/test-utils';
 
-//let INSURANCE_URL = "https://nouveau-app.azurewebsites.net/doctor";
-let INSURANCE_URL = "http://localhost:8080/doctor"
+let INSURANCE_URL = "https://nouveau-app.azurewebsites.net/doctor";
+//let INSURANCE_URL = "http://localhost:8080/doctor"
 export default function DoctorHome() {
     //const searchParams = new URLSearchParams(window?.location?.search);
     //const userid = parseInt(searchParams.get('userid'));
@@ -158,7 +158,7 @@ export default function DoctorHome() {
                                             <p style={{marginBottom: "0px", fontSize: "14pt"}}>{createTimeString(appt.date)}</p>
                                         </div>
                                         <div style={{float: "right", width:"49%", textAlign:"right", marginRight: ".5%"}}>
-                                            <p style={{marginBottom: "0px", fontSize: "14pt"}}>{appt.patientname} </p>
+                                            <p style={{marginBottom: "0px", fontSize: "14pt"}}>Patient: {appt.patientname} </p>
                                             <p style={{marginBottom: "0px", fontSize: "12pt"}}>Reason: {appt.symptoms}</p>
                                         </div>
                                     </td>

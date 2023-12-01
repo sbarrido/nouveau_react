@@ -18,6 +18,7 @@ import PatientHome from "./routes/patienthome";
 import DoctorHome from "./routes/doctorhome";
 import PatientProfile from "./routes/patientprofile";
 import DoctorProfile from "./routes/doctorprofile";
+import InsuranceProfile from "./routes/insuranceprofile"
 
 
 const router = createBrowserRouter([
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
   {
     path:'doctor/profile',
     element: <DoctorProfile />
+  },
+  {
+    path:'insurance/profile',
+    element: <InsuranceProfile />
   }
 ]);
 

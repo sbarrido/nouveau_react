@@ -30,13 +30,13 @@ export const PatientNavbarData = [
     },
     {
         title: "Feedback",
-        path: "/feedback",
+        path: "patient/feedback",
         icon: <IoIcons.IoIosStarHalf />,
         class: "nav-text",
     },
     {
         title: "Insurance",
-        path: "/insurance",
+        path: "/patient/insurance",
         icon: <AiIcons.AiFillInsurance />,
         class: "nav-text",
     },
