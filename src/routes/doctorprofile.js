@@ -8,8 +8,8 @@ import axios from 'axios';
 import Dashboard from '../components/Dashboard';
 import { act } from 'react-dom/test-utils';
 
-let DOCTORPROFILE_URL = "https://nouveau-app.azurewebsites.net/profile/doctor";
-//let DOCTORPROFILE_URL = "http://localhost:8080/profile/doctor"
+//let DOCTORPROFILE_URL = "https://nouveau-app.azurewebsites.net/profile/doctor";
+let DOCTORPROFILE_URL = "http://localhost:8080/profile/doctor"
 export default function DoctorProfile() {
     //const searchParams = new URLSearchParams(window?.location?.search);
     //const userid = parseInt(searchParams.get('userid'));

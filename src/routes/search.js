@@ -7,8 +7,8 @@ import PatientNav from '../components/PatientNav'
 import axios from 'axios';
 import Dashboard from '../components/Dashboard';
 
-let SEARCH_URL = "https://nouveau-app.azurewebsites.net/search";
-//let SEARCH_URL = "http://localhost:8080/search";
+//let SEARCH_URL = "https://nouveau-app.azurewebsites.net/search";
+let SEARCH_URL = "http://localhost:8080/search";
 export default function Search() {
     //const searchParams = new URLSearchParams(window?.location?.search);
     //const userid = searchParams.get('userid')
@@ -121,6 +121,21 @@ export default function Search() {
         navigate("../appointment")
     }
 
+    const phoneNumberify = (phoneNumber) => {
+        if(phoneNumber === undefined || phoneNumber === null) {
+            return null;
+        }
+
+        let stringNum = phoneNumber.toString()
+
+        if (stringNum.length !== 10) {
+            return stringNum
+        }
+
+        let outNum = stringNum.substring(0, 3) + "-" + stringNum.substring(3, 6) + "-" + stringNum.substring(6)
+        return outNum;
+    }
+
     return (
         <>
             <Dashboard role='patient'/>
@@ -154,7 +169,7 @@ export default function Search() {
                                 <p style={{marginBottom: "0px", fontSize: "12pt"}}>{profile.specialty} </p>
                                 <p style={{marginBottom: "0px", fontSize: "9pt"}}>{profile.covid ? "Supports Covid Care" : "Does not support Covid Care"} </p>
                             </td>
-                            <td style={{width:"25%"}}><b>Email:</b> {profile.email}<br/> <b>Phone:</b> {profile.phone}</td>
+                            <td style={{width:"25%"}}><b>Email:</b> {profile.email}<br/> <b>Phone:</b> {phoneNumberify(profile.phone)}</td>
                             <td style={{width:"25%"}}>{profile.feedback} {profile.feedback !== "No Reviews Yet" ? '⭐' : null}</td>
                             <td style={{width:"25%", paddingRight: "10px"}}>
                                 <Button onClick={() => {appointmentRedirect(profile.id)}}>Book Appointment</Button>
