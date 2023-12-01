@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 import "../css/DoctorProfile.css";
+import { Routes, Route, Outlet } from "react-router-dom";
+import PatientDetailsInfo from "./PatientDetailsInfo";
+
+const PATIENTSDETAILSINFORROUTE =
+  "/doctordashboard/patientdetails/patientdetailsInfo";
+let DetailsInfo = [];
+let BASE_URL = "http://localhost:8080";
+const doctorID = 3;
 
 function PatientDetails() {
-  let BASE_URL = "http://localhost:8080";
-  const doctorId = 3;
   const [patientData, setPatientData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,7 +21,7 @@ function PatientDetails() {
         const response = await axios.post(
           `${BASE_URL}/doctordashboard/patientdetails`,
           {
-            doctorId: doctorId,
+            doctorID: doctorID,
           }
         );
         setPatientData(response.data);
@@ -25,29 +33,45 @@ function PatientDetails() {
     fetchData();
   }, []);
 
-  const handlePatientClick = () => {};
+  const handlePatientClick = (index) => {
+    const patientID = patientData[index].ID;
+    const patientName = patientData[index].patientName;
+    console.log(patientID, patientName);
+    console.log(DetailsInfo);
+    navigate(`${PATIENTSDETAILSINFORROUTE}/${patientID}/${doctorID}`);
+  };
 
-  const handleClick = () => {};
   return (
     <>
       <div className="flexbox" id="patientBox">
         <div className="patientBox">
-          {patientData.map((item, index) => {
-            return (
-              <div
-                className="patients"
-                key={index}
-                onClick={handlePatientClick}
-              >
-                <div className="patient-name">
-                  Patient Name: {item.patientName}
-                </div>
+          {patientData.map((item, index) => (
+            <div
+              className="patients"
+              id="patients"
+              key={index}
+              onClick={() => handlePatientClick(index)}
+            >
+              <div className="patient-name">
+                Patient Name: {item.patientName}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
-        <button onClick={handleClick}>GET</button>;
       </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Outlet>
+              <Route
+                path={`${PATIENTSDETAILSINFORROUTE}/:patientID/:doctorID`}
+                element={<PatientDetailsInfo />}
+              />
+            </Outlet>
+          }
+        />
+      </Routes>
     </>
   );
 }

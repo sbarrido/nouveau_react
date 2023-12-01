@@ -12,8 +12,8 @@ const isPatient = false;
 const Dashboard = (props) => {
   const [sidebar, setsidebar] = useState(false);
 
-  const role = props.role;
-
+  let role = props.role;
+  
   const showSideBar = () => {
     setsidebar(!sidebar);
   };
@@ -33,7 +33,7 @@ const Dashboard = (props) => {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
-            {role === 'doctor'
+            {role === "doctor"
               ? DoctorNavbarData.map((item, index) => {
                   return (
                     <li key={index} className={item.class}>
@@ -44,18 +44,8 @@ const Dashboard = (props) => {
                     </li>
                   );
                 })
-              : 
-              role === 'insurance' ? InsuranceNavbarData.map((item, index) => {
-                return (
-                  <li key={index} className={item.class}>
-                    <Link to={item.path}>
-                      {item.icon}
-                      <span>{item.title}</span>
-                    </Link>
-                  </li>
-                );
-              })
-              : PatientNavbarData.map((item, index) => {
+              : role === "insurance"
+              ? InsuranceNavbarData.map((item, index) => {
                   return (
                     <li key={index} className={item.class}>
                       <Link to={item.path}>
@@ -65,7 +55,16 @@ const Dashboard = (props) => {
                     </li>
                   );
                 })
-            }
+              : PatientNavbarData.map((item, index) => {
+                  return (
+                    <li key={index} className={item.class}>
+                      <Link to={item.path}>
+                        {item.icon}
+                        <span>{item.title}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
           </ul>
         </nav>
       </IconContext.Provider>
