@@ -6,9 +6,10 @@ import ReactDOM from 'react-dom/client';
 import PatientNav from '../components/PatientNav'
 import axios from 'axios';
 import Dashboard from '../components/Dashboard';
+import "../css/hover.css";
 
-//let SEARCH_URL = "https://nouveau-app.azurewebsites.net/search";
-let SEARCH_URL = "http://localhost:8080/search";
+let SEARCH_URL = "https://nouveau-app.azurewebsites.net/search";
+//let SEARCH_URL = "http://localhost:8080/search";
 export default function Search() {
     //const searchParams = new URLSearchParams(window?.location?.search);
     //const userid = searchParams.get('userid')
@@ -107,7 +108,7 @@ export default function Search() {
         getSearchResults();
     }
 
-    const appointmentRedirect = (doctorid) => {
+    const appointmentRedirect = (doctorid, doctorname) => {
         /*
         navigate({
             pathname: "../appointment",
@@ -118,22 +119,14 @@ export default function Search() {
         */
 
         sessionStorage.setItem('apptdoctorid', doctorid)
+        sessionStorage.setItem('apptdoctorname', doctorname)
         navigate("../appointment")
     }
 
-    const phoneNumberify = (phoneNumber) => {
-        if(phoneNumber === undefined || phoneNumber === null) {
-            return null;
-        }
 
-        let stringNum = phoneNumber.toString()
-
-        if (stringNum.length !== 10) {
-            return stringNum
-        }
-
-        let outNum = stringNum.substring(0, 3) + "-" + stringNum.substring(3, 6) + "-" + stringNum.substring(6)
-        return outNum;
+    const detailsRedirect = (doctorid) => {
+        sessionStorage.setItem('doctorviewid', doctorid)
+        navigate("/patient/doctorview")
     }
 
     return (
@@ -155,24 +148,22 @@ export default function Search() {
                     <table style={{tableLayout:"fixed", width:"100%"}}>
                         <thead>
                             <tr>
-                                <th style={{width:"25%"}}>Doctor</th>
-                                <th style={{width:"25%"}}>Contact Info</th>
-                                <th style={{width:"25%"}}>Rating</th>
-                                <th style={{width:"25%"}}>Book Appointment</th>
+                                <th style={{width:"80%"}}>Doctor</th>
+                                <th style={{width:"20%"}}>Book Appointment</th>
                             </tr>
                         </thead>
                         <tbody>
                         {results.map((profile, i) => (
-                        <tr key={i} style={{border: "1px solid"}}>
-                            <td style={{width:"25%"}}>
-                                <p style={{marginBottom: "0px", fontSize: "14pt"}}>{profile.name} </p>
-                                <p style={{marginBottom: "0px", fontSize: "12pt"}}>{profile.specialty} </p>
-                                <p style={{marginBottom: "0px", fontSize: "9pt"}}>{profile.covid ? "Supports Covid Care" : "Does not support Covid Care"} </p>
+                        <tr style={{border: "1px solid", width:"100%"}}>
+                            <td class='hoverable' style={{width:"50%"}} onClick={() => {detailsRedirect(profile.id)}}>
+                                <div>
+                                <p style={{marginBottom: "0px", fontSize: "14pt"}}>{profile.name} - {profile.specialty} </p>
+                                <p style={{marginBottom: "0px", fontSize: "10pt"}}>{profile.covid ? "Supports Covid Care" : "Does not support Covid Care"} </p>
+                                <p style={{marginBottom: "0px", fontSize: "10pt"}}>{profile.feedback} {profile.feedback !== "No Reviews Yet" ? '⭐' : null}</p>
+                                </div>
                             </td>
-                            <td style={{width:"25%"}}><b>Email:</b> {profile.email}<br/> <b>Phone:</b> {phoneNumberify(profile.phone)}</td>
-                            <td style={{width:"25%"}}>{profile.feedback} {profile.feedback !== "No Reviews Yet" ? '⭐' : null}</td>
-                            <td style={{width:"25%", paddingRight: "10px"}}>
-                                <Button onClick={() => {appointmentRedirect(profile.id)}}>Book Appointment</Button>
+                            <td style={{width:"50%", paddingRight: "10px"}}>
+                                <Button onClick={() => {appointmentRedirect(profile.id, profile.name)}}>Book Appointment</Button>
                             </td>
                         </tr>
                         ))}

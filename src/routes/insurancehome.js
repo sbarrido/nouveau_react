@@ -9,8 +9,8 @@ import InsuranceNav from '../components/InsuranceNav'
 import Dashboard from '../components/Dashboard';
 import { act } from 'react-dom/test-utils';
 
-//let INSURANCE_URL = "https://nouveau-app.azurewebsites.net/insurance";
-let INSURANCE_URL = "http://localhost:8080/insurance"
+let INSURANCE_URL = "https://nouveau-app.azurewebsites.net/insurance";
+//let INSURANCE_URL = "http://localhost:8080/insurance"
 export default function InsuranceHome() {
     //const searchParams = new URLSearchParams(window?.location?.search);
     //const userid = parseInt(searchParams.get('userid'));

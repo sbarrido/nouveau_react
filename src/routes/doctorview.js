@@ -8,8 +8,8 @@ import axios from 'axios';
 import Dashboard from '../components/Dashboard';
 import { act } from 'react-dom/test-utils';
 
-//let DOCTORVIEW_URL = "https://nouveau-app.azurewebsites.net/doctor";
-let DOCTORVIEW_URL = "http://localhost:8080/doctor"
+let DOCTORVIEW_URL = "https://nouveau-app.azurewebsites.net/doctor";
+//let DOCTORVIEW_URL = "http://localhost:8080/doctor"
 export default function DoctorView() {
     //const searchParams = new URLSearchParams(window?.location?.search);
     //const userid = parseInt(searchParams.get('userid'));
@@ -18,8 +18,9 @@ export default function DoctorView() {
     const [allFeedback, setAllFeedback] = useState([]);
     const [profile, setProfile] = useState(null);
     const [isPatient, setIsPatient] = useState(false);
-    const [rating, setRating] = useState(-1);
-    const [written, setWritten] = useState(null);
+    const [rating, setRating] = useState(1);
+    const [written, setWritten] = useState('');
+    const [writingFeedback, setWritingFeedback] = useState(null)
     const [givenFeedback, setGivenFeedback] = useState(false)
     const [detailsLoading, setDetailsLoading] = useState(false);
     const [feedbackLoading, setFeedbackLoading] = useState(false);
@@ -72,7 +73,7 @@ export default function DoctorView() {
             setAllFeedback(response.data.feedback);
             setProfile(response.data.doctor);
             setIsPatient(response.data.isPatient);
-            setGivenFeedback(response.data.givenFeedback);
+            setGivenFeedback(response.data.hasGivenFeedback);
             setDetailsLoading(false);
             console.log(response.data);
         }, (error) => {
@@ -91,13 +92,14 @@ export default function DoctorView() {
             data: {
                 patientid: userid,
                 doctorid: doctorid,
-                rating: rating,
+                rating: Number(rating),
                 written: written === null || written.trim() === '' ? undefined : written.trim()
             }
         })
         .then((response) => {
             alert('Feedback submitted')
             getDetails();
+            setWritingFeedback(false);
             setFeedbackLoading(false);
             console.log(response.data);
         }, (error) => {
@@ -123,30 +125,55 @@ export default function DoctorView() {
         return outNum;
     }
 
+    const appointmentRedirect = () => {
+
+        sessionStorage.setItem('apptdoctorid', doctorid)
+        sessionStorage.setItem('apptdoctorname', profile?.name)
+        navigate("/appointment")
+    }
+
+    const cancelClick = (e) => {
+        setRating(1)
+        setWritten('');
+        setWritingFeedback(false);
+    }
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        postFeedback()
+        console.log(rating)
+        console.log(written)
+    }
+
 
 //render() {
     return (
         <>
-            <Dashboard role='doctor'/>
+            <Dashboard role='patient'/>
             <div style={{marginTop: "2%", marginLeft: "5%", marginRight: "5%", display: "block", textAlign: "left"}}>
 
-                <div style={{marginLeft: ".5%", marginBottom: "20px"}}>
-                    <h1 style={{marginLeft: ".5%"}}>Dr. {profile?.name}</h1>
-                    <div style={{display: 'block'}}>
-                        <h3 style={{marginRight: "5%"}}>{profile?.specialty}</h3>
-                        <h5>{profile?.covid ? "Supports Covid Care" : "Does not support Covid Care"}</h5>
+                <div style={{marginLeft: ".5%", marginBottom: "30px"}}>
+                    <h1>Dr. {profile?.name}</h1>
+                    <div style={{display: 'block', marginBottom:"20px"}}>
+                        <h3 style={{display: 'inline', marginRight: "5%"}}>{profile?.specialty}</h3>
+                        <h5 style={{display: 'inline'}}>{profile?.covid ? "Supports Covid Care" : "Does not support Covid Care"}</h5>
+                    </div>
+
+                    <div style={{marginBottom:"20px"}}>
+                        <h4>Contact Info</h4>
+                        <p style={{fontSize: "16pt", marginBottom: "0px"}}>Email: {profile?.email}</p>
+                        <p style={{fontSize: "16pt"}}>Phone Number: {phoneNumberify(profile?.email)}</p>
                     </div>
 
                     <div>
-                        <h4>Contact Info</h4>
-                        <p style={{fontSize: "16pt"}}>Email: {profile?.email}</p>
-                        <p style={{fontSize: "16pt"}}>Phone Number: {phoneNumberify(profile?.email)}</p>
+                        <Button onClick={() => {appointmentRedirect()}}>Book Appointment</Button>
                     </div>
                 </div>
 
                 <div>
-                    <h4 style={{marginLeft: ".5%"}}>Feedback</h4>
-                    <h3 style={{marginLeft: ".5%"}}>Average Rating: {profile?.feedback} {allFeedback.length > 0 ? '⭐' : null}</h3>
+                    <h4 style={{marginLeft: ".5%"}}>Reviews</h4>
+                    <h5 style={{marginLeft: ".5%"}}>Average Rating: {profile?.feedback} {allFeedback.length > 0 ? '⭐' : null}</h5>
                         {allFeedback.length === 0
                         ?
                             <div style={{width:"100%", border: "1px solid", marginBottom:"25px", overflow:"auto", padding:"1%"}}>
@@ -159,8 +186,8 @@ export default function DoctorView() {
                                 <tr key={i} style={{border: ".75px solid", borderColor: "gray"}}>
                                     <td>
                                         <div>
-                                            <p style={{marginBottom: "10px", fontSize: "16pt"}}>{review.rating} </p>
-                                            <p style={{marginBottom: "0px", fontSize: "14pt", display: review.written ? "inline" : "none"}}>{review.written}</p>
+                                            <p style={{marginBottom: "10px", marginLeft: ".5%", fontSize: "16pt"}}>{review.rating}/5⭐ </p>
+                                            <p style={{marginBottom: "0px", marginLeft: ".5%", fontSize: "14pt", display: review.written ? "inline" : "none"}}>{review.written}</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -169,6 +196,42 @@ export default function DoctorView() {
                             </table>
                         }
                 </div>
+
+                <Button style={{display: isPatient && !writingFeedback ? 'block' : 'none' }} type="button" onClick={(e)=>{setWritingFeedback(true)}}>
+                    {givenFeedback ? "Leave new review" : "Leave review"}
+                </Button>
+
+                <Form onSubmit={handleSubmit} method="post">
+                    <div style={{marginBottom:"20px", display: writingFeedback ? 'block' : 'none', border: "1px solid", borderColor: "black", borderRadius: "15px", height:"100%", padding:"1%"}}>
+                            <h4>Leave Review</h4>
+                            <p style={{display: givenFeedback ? 'block' : 'none'}}>Note: Your new feedback will overwrite your old review</p>
+                            <div style={{marginBottom:"10px"}}>
+                                <Label for="ratingid" style={{fontSize:"14pt"}}>Rating</Label> <br/>
+                                <div>
+                                    <Input type="text" disabled value={rating} style={{width:"10%", display: "inline", marginRight: "1%"}}/>
+                                    <Input name="rating" id="ratingid" type="range" min="1" max="5" step="1" style={{width:"50%", display: "inline"}}
+                                        value={rating} 
+                                        onChange={(e) => {setRating(e.target.value)}} 
+                                    />
+                                </div>
+                            </div>
+
+                            <div style={{marginBottom:"10px"}}>
+                                <Label for="writtenid" style={{fontSize:"14pt"}}>Additional Comments</Label> <br/>
+                                <Input name="written" id="written" type="text" 
+                                    value={written} 
+                                    onChange={(e) => {setWritten(e.target.value)}} 
+                                />
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style={{display: writingFeedback ? 'block' : 'none' }}>
+                                <Button style={{marginRight: "10%"}} type='submit'>Submit feedback</Button>
+                                <Button style={{marginRight: "10%"}} type="button" onClick={cancelClick}>Cancel</Button>
+                            </div>
+                        </div>
+                </Form>
             </div>
         </>
     );
