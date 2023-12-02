@@ -20,6 +20,8 @@ import PatientProfile from "./routes/patientprofile";
 import DoctorProfile from "./routes/doctorprofile";
 import InsuranceProfile from "./routes/insuranceprofile"
 import DoctorView from "./routes/doctorview"
+import PatientInsurance from "./routes/patientinsurance"
+import InsurancePlans from "./routes/providerinsuranceplans";
 
 
 const router = createBrowserRouter([
@@ -78,6 +80,14 @@ const router = createBrowserRouter([
   {
     path:'patient/doctorview',
     element: <DoctorView />
+  },
+  {
+    path:'patient/insurance',
+    element: <PatientInsurance />
+  },
+  {
+    path:'insurance/plans',
+    element: <InsurancePlans />
   }
 ]);
 

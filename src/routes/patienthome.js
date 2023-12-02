@@ -164,6 +164,7 @@ export default function PatientHome() {
                         :
                             <div style={{width:"100%", border: "1px solid", marginBottom:"25px", overflow:"auto"}}>
                                 <div style={{float: "left", width:"49%", marginLeft: ".5%"}}>
+                                    <h5 style={{marginBottom: "0px"}}>{plan.providername}</h5>
                                     <p style={{marginBottom: "0px", fontSize: "16pt"}}>{plan.name} </p>
                                     <p style={{marginBottom: "0px", fontSize: "14pt"}}>${plan.monthlyrate}/mo</p>
                                 </div>

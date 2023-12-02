@@ -29,12 +29,6 @@ export const PatientNavbarData = [
         class: "nav-text",
     },
     {
-        title: "Feedback",
-        path: "patient/feedback",
-        icon: <IoIcons.IoIosStarHalf />,
-        class: "nav-text",
-    },
-    {
         title: "Insurance",
         path: "/patient/insurance",
         icon: <AiIcons.AiFillInsurance />,
