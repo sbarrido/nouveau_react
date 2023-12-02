@@ -7,6 +7,7 @@ import {Navbar, NavbarBrand, NavbarText, Button, Col, Form, FormGroup, Input, La
 import axios from 'axios';
 import Dashboard from '../components/Dashboard';
 import { act } from 'react-dom/test-utils';
+import "../css/hover.css";
 
 let INSURANCE_URL = "https://nouveau-app.azurewebsites.net/patient";
 //let INSURANCE_URL = "http://localhost:8080/patient"
@@ -136,6 +137,12 @@ export default function PatientHome() {
     }
 
 
+    const detailsRedirect = (doctorid) => {
+        sessionStorage.setItem('doctorviewid', doctorid)
+        navigate("/patient/doctorview")
+    }
+
+
 
 //render() {
     return (
@@ -183,7 +190,7 @@ export default function PatientHome() {
                         <tbody>
                             {doctors.map((doctor, i) => (
                             <tr key={i} style={{border: "1px solid"}}>
-                                <td>
+                                <td class='hoverable' style={{width:"50%"}} onClick={() => {detailsRedirect(doctor.id)}}>
                                     <div style = {{marginLeft: ".5%"}}>
                                         <p style={{marginBottom: "0px", fontSize: "14pt"}}>Dr. {doctor.name} </p>
                                         <p style={{marginBottom: "0px", fontSize: "12pt"}}>{doctor.specialty} </p>

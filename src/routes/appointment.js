@@ -19,6 +19,7 @@ export default function Appointment() {
     const patientid = Number(sessionStorage.getItem('userid'))
     //const doctorid = doctorid === null ? parseInt(searchParams.get('doctorid')) : doctorid;
     const doctorid = Number(sessionStorage.getItem('apptdoctorid'))
+    const doctorname = sessionStorage.getItem('apptdoctorname')
     //const doctorid = Number(location.state.doctorid);
 
     const today = new Date;
@@ -156,6 +157,7 @@ export default function Appointment() {
             console.log(response.data);
             alert("Appointment successfully created");
             sessionStorage.removeItem('apptdoctorid');
+            sessionStorage.removeItem('apptdoctorname');
             navigate('../patient')
         }, (error) => {
             console.log(error);
@@ -214,7 +216,7 @@ export default function Appointment() {
         <>
             <Dashboard role='patient'/>
             <div style={{textAlign: "left", width: "95%", marginLeft: "2.50%", marginRight: "2.5%", marginTop: "1%", marginBottom: "2.5%"}}>
-                <h2>Book Appointment</h2>
+                <h2>Book Appointment with Dr. {doctorname}</h2>
                 <div style={{marginTop:"25px", width: "75%"}}>
                     <Form onSubmit={handleSubmit} method="post">
                         <h4>Appointment Information</h4>
