@@ -10,7 +10,10 @@ const socket = io("http://localhost:8080");
 // const socket = io("https://nouveau-app.azurewebsites.net");
 
 const ChatApp = () => {
-  const [newUser, setNewUser] = useState("");
+  const userid = Number(sessionStorage.getItem("userid"));
+  const newUser = sessionStorage.getItem("name");
+  console.log(userid, newUser);
+
   const [user, setUser] = useState({});
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState("");
@@ -26,6 +29,8 @@ const ChatApp = () => {
 
   useEffect(() => {
     checkIfUserExists();
+    socket.auth = { username: newUser };
+    socket.connect();
     socket.on("users", (users) => {
       setUsers(users);
       console.log(users);
@@ -36,11 +41,11 @@ const ChatApp = () => {
       localStorage.setItem("sessionId", sessionId);
       setUser({ userId, username });
     });
-  }, [socket, messages, checkIfUserExists]);
+  }, [socket, messages, checkIfUserExists, newUser]);
 
-  const handleChange = (e) => {
-    setNewUser(e.target.value);
-  };
+  // const handleChange = (e) => {
+  //   setNewUser(e.target.value);
+  // };
 
   const logNewUser = () => {
     socket.auth = { username: newUser };
@@ -60,13 +65,13 @@ const ChatApp = () => {
             socket={socket}
           />
         )}
-        {!user.userId && (
+        {/* {!user.userId && (
           <Login
             newUser={newUser}
             handleChange={handleChange}
             logNewUser={logNewUser}
           />
-        )}
+        )} */}
       </div>
     </main>
   );

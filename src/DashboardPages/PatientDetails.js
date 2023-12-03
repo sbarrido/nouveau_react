@@ -5,8 +5,7 @@ import "../css/DoctorProfile.css";
 import { Routes, Route, Outlet } from "react-router-dom";
 import PatientDetailsInfo from "./PatientDetailsInfo";
 
-const PATIENTSDETAILSINFORROUTE =
-  "/doctordashboard/patientdetails/patientdetailsInfo";
+const PATIENTSDETAILSINFORROUTE = "/doctor/patientdetails/patientdetailsInfo";
 let DetailsInfo = [];
 let BASE_URL = "http://localhost:8080";
 const doctorID = 3;
@@ -18,12 +17,9 @@ function PatientDetails() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post(
-          `${BASE_URL}/doctordashboard/patientdetails`,
-          {
-            doctorID: doctorID,
-          }
-        );
+        const response = await axios.post(`${BASE_URL}/doctor/patientdetails`, {
+          doctorID: doctorID,
+        });
         setPatientData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);

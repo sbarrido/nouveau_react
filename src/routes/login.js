@@ -22,16 +22,17 @@ import { jwtDecode } from "jwt-decode";
 // let LOGIN_URL = "https://nouveau-app.azurewebsites.net/login";
 let LOGIN_URL = "http://localhost:8080/login";
 let GOOGLEAUTH_PATH = "/googleauth";
-let LOGOUT_PATH = "/logout";
-
 export default function Login() {
+  let roleName = "";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [user, setUser] = useState({});
   const location = useLocation();
+  const navigate = useNavigate();
   const { caption } = location.state || {};
 
-  const [user, setUser] = useState({});
+  if (caption === "Doctor") roleName = "doctor";
+  else if (caption === "Patient") roleName = "patient";
 
   function handleCallbackResponse(response) {
     //console.log("Encoded JWT ID token: " + response.credential);
@@ -45,17 +46,20 @@ export default function Login() {
       url: LOGIN_URL + GOOGLEAUTH_PATH,
       data: {
         id_token: response.credential,
-        caption: caption,
+        roleName: roleName,
       },
     }).then(
       (response) => {
-        if (response.status === 200) {
-          alert(`Maga Lottery max`);
-          navigate();
-        } else {
-          alert(
-            `Registration failed. There was an error saving the user. Please try again`
-          );
+        if (response != null) {
+          sessionStorage.setItem("userid", response.data.userid);
+          sessionStorage.setItem("name", response.data.name);
+          sessionStorage.setItem("email", response.data.email);
+          sessionStorage.setItem("role", response.data.role);
+          console.log(sessionStorage);
+          alert("Logging you in...");
+          navigate({
+            pathname: "../" + response.data.role,
+          });
         }
       },
       (error) => {
@@ -84,13 +88,10 @@ export default function Login() {
     );
   }, []);
 
-  console.log(caption);
   const uniqueUser = async (email) => {
     const unique = await axios.get(LOGIN_URL + "/" + email);
     return unique.data?.unique;
   };
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -111,10 +112,16 @@ export default function Login() {
       },
     }).then(
       (response) => {
+        sessionStorage.setItem("userid", response.data.userid);
+        sessionStorage.setItem("name", response.data.name);
+        sessionStorage.setItem("email", response.data.email);
+        sessionStorage.setItem("role", response.data.role);
+        console.log(sessionStorage);
         if (!response.data.mfa) {
           alert("Logging you in...");
-
-          // redirect
+          navigate({
+            pathname: "../" + response.data.role,
+          });
         } else {
           var result = response.data.response.result;
           if (result == "auth") {
@@ -132,12 +139,17 @@ export default function Login() {
             alert("Logging you in...");
 
             // redirect
+            navigate({
+              pathname: response.data.role,
+            });
           } else if (result == "deny") {
             alert("Access denied: " + response.data.response.status_msg);
+            sessionStorage.clear();
             navigate("../");
           } else {
             // result == "enroll" -- shouldn't happen normally, just deny for now (in future either prompt them to enroll or set mfa to false and log them in)
             alert("Access denied");
+            sessionStorage.clear();
             navigate("../");
           }
         }

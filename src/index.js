@@ -14,9 +14,17 @@ import Search from "./routes/search";
 import Appointment from "./routes/appointment";
 import PatientHome from "./routes/patienthome";
 import DoctorHome from "./routes/doctorhome";
+import PatientProfile from "./routes/patientprofile";
+import DoctorProfile from "./routes/doctorprofile";
+import InsuranceProfile from "./routes/insuranceprofile";
+import DoctorView from "./routes/doctorview";
+import PatientInsurance from "./routes/patientinsurance";
+import InsurancePlans from "./routes/providerinsuranceplans";
 import DoctorDashboard from "./routes/doctordashboard";
 import PatientDashboard from "./routes/patientdashboard";
-
+import ChatApp from "./DashboardPages/ChatApp";
+import PatientDetails from "./DashboardPages/PatientDetails";
+import PatientDetailsInfo from "./DashboardPages/PatientDetailsInfo";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -50,13 +58,55 @@ const router = createBrowserRouter([
     path: "appointment",
     element: <Appointment />,
   },
+
+  {
+    path: "patient",
+    element: <PatientHome />,
+  },
+  {
+    path: "patient/profile",
+    element: <PatientProfile />,
+  },
+  {
+    path: "patient/doctorview",
+    element: <DoctorView />,
+  },
+  {
+    path: "patient/patientchat",
+    element: <ChatApp />,
+  },
+  {
+    path: "patient/insurance",
+    element: <PatientInsurance />,
+  },
   {
     path: "doctor",
     element: <DoctorHome />,
   },
   {
-    path: "patient",
-    element: <PatientHome />,
+    path: "doctor/profile",
+    element: <DoctorProfile />,
+  },
+  {
+    path: "doctor/doctorchat",
+    element: <ChatApp />,
+  },
+  {
+    path: "doctor/patientdetails/*",
+    element: <PatientDetails />,
+  },
+  {
+    path: "doctor/patientdetails/patientdetailsInfo/:patientID/:doctorID",
+    element: <PatientDetailsInfo />,
+  },
+
+  {
+    path: "insurance/doctorchat",
+    element: <InsuranceProfile />,
+  },
+  {
+    path: "insurance/plans",
+    element: <InsurancePlans />,
   },
   {
     path: "doctordashboard/*",

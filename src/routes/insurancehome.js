@@ -12,19 +12,33 @@ import { act } from 'react-dom/test-utils';
 let INSURANCE_URL = "https://nouveau-app.azurewebsites.net/insurance";
 //let INSURANCE_URL = "http://localhost:8080/insurance"
 export default function InsuranceHome() {
-    const searchParams = new URLSearchParams(window?.location?.search);
-    const userid = parseInt(searchParams.get('userid'));
+    //const searchParams = new URLSearchParams(window?.location?.search);
+    //const userid = parseInt(searchParams.get('userid'));
+    const userid = Number(sessionStorage.getItem('userid'))
     const [plans, setPlans] = useState([]);
     const [patients, setPatients] = useState([]);
     const [patientLoading, setPatientLoading] = useState(false);
     const [plansLoading, setPlansLoading] = useState(false);
     let call = true;
+    let firstload = true;
 
     const navigate = useNavigate();   
     
 
     useEffect(() => {
         //const abortController = new AbortController();
+        if(firstload) {
+            firstload = false;
+            if(sessionStorage.getItem('userid') === null) {
+                alert("You need to log in to access this page")
+                sessionStorage.clear()
+                navigate("../")
+            }
+            else if(sessionStorage.getItem('role') !== 'insurance') {
+                alert("You do not have access to this page")
+                navigate(`../${sessionStorage.getItem('role')}`)
+            }
+        }
 
         if(call) {
             console.log(userid);
@@ -85,7 +99,7 @@ export default function InsuranceHome() {
             <Dashboard role='insurance'/>
             <div style={{marginTop: "2%", marginLeft: "5%", marginRight: "5%", display: "block", textAlign: "left"}}>
 
-                <h1 style={{marginLeft: ".5%"}}>Home</h1>
+                <h1 style={{marginLeft: ".5%"}}>Home - {sessionStorage.getItem("name")}</h1>
 
                 <hr/>
                 

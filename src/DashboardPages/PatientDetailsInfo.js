@@ -15,7 +15,7 @@ function PatientDetailsInfo(props) {
     const fetchData = async () => {
       try {
         const response = await axios.post(
-          `${BASE_URL}/doctordashboard/patientdetails/patientdetailsInfo/${patientID}/${doctorID}`,
+          `${BASE_URL}/doctor/patientdetails/patientdetailsInfo/${patientID}/${doctorID}`,
           {
             doctorID: doctorID,
             patientID: patientID,

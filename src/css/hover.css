@@ -1,0 +1,8 @@
+.hoverable div{
+    padding-left: 3px;
+}
+
+.hoverable div:hover{
+    background-color: darkgrey;
+    max-width: 100%;
+}

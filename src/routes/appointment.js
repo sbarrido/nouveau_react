@@ -1,6 +1,6 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
-import {createSearchParams, Link, useNavigate} from 'react-router-dom'
+import {createSearchParams, Link, useNavigate, useLocation} from 'react-router-dom'
 import {Form, FormGroup, Input, Label, Spinner, Button} from 'reactstrap';
 import ReactDOM from 'react-dom/client';
 import PatientNav from '../components/PatientNav'
@@ -12,8 +12,15 @@ let APPOINTMENT_URL = "https://nouveau-app.azurewebsites.net/appointment";
 //let APPOINTMENT_URL = "http://localhost:8080/appointment";
 export default function Appointment() {
     const searchParams = new URLSearchParams(window?.location?.search);
-    const patientid = parseInt(searchParams.get('userid'));
-    const doctorid = parseInt(searchParams.get('doctorid'));
+    //const location = useLocation()
+    const navigate = useNavigate();
+
+    //const patientid = parseInt(searchParams.get('userid'));
+    const patientid = Number(sessionStorage.getItem('userid'))
+    //const doctorid = doctorid === null ? parseInt(searchParams.get('doctorid')) : doctorid;
+    const doctorid = Number(sessionStorage.getItem('apptdoctorid'))
+    const doctorname = sessionStorage.getItem('apptdoctorname')
+    //const doctorid = Number(location.state.doctorid);
 
     const today = new Date;
     const tomorrow = new Date;
@@ -40,7 +47,29 @@ export default function Appointment() {
     const [contact, setContact] = useState(false);
     const [travel, setTravel] = useState(false);
 
+    let firstload = true;
+
     useEffect(() => {
+        if(firstload) { 
+            firstload = false; 
+            if(sessionStorage.getItem('userid') === null) {
+                alert("You need to log in to access this page")
+                sessionStorage.clear()
+                navigate("../")
+            }
+            else if(sessionStorage.getItem('role') !== 'patient') {
+                alert("You do not have access to this page")
+                navigate(`../${sessionStorage.getItem('role')}`)
+            }
+            else if(sessionStorage.getItem('apptdoctorid') === null) {
+                alert('No doctor selected. Returning to doctor search')
+                navigate('../search')
+            }
+        }
+
+
+        console.log(patientid)
+        console.log(doctorid)
         if(!gotAppointments) {
             gotAppointments = true;
 
@@ -50,7 +79,6 @@ export default function Appointment() {
         }
     }, []);
 
-    const navigate = useNavigate();
 
     const getUnavailableDays = () => {
         axios({
@@ -128,6 +156,9 @@ export default function Appointment() {
         .then((response) => {
             console.log(response.data);
             alert("Appointment successfully created");
+            sessionStorage.removeItem('apptdoctorid');
+            sessionStorage.removeItem('apptdoctorname');
+            navigate('../patient')
         }, (error) => {
             console.log(error);
             alert(error.response.data);
@@ -185,7 +216,7 @@ export default function Appointment() {
         <>
             <Dashboard role='patient'/>
             <div style={{textAlign: "left", width: "95%", marginLeft: "2.50%", marginRight: "2.5%", marginTop: "1%", marginBottom: "2.5%"}}>
-                <h2>Book Appointment</h2>
+                <h2>Book Appointment with Dr. {doctorname}</h2>
                 <div style={{marginTop:"25px", width: "75%"}}>
                     <Form onSubmit={handleSubmit} method="post">
                         <h4>Appointment Information</h4>
