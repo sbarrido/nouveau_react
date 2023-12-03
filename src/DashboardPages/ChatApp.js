@@ -6,8 +6,8 @@ import Login from "../components/Login";
 import Chat from "../components/Chat";
 import "../css/ChatApp.css";
 
-// const socket = io("http://localhost:8080");
-const socket = io("https://nouveau-app.azurewebsites.net");
+const socket = io("http://localhost:8080");
+// const socket = io("https://nouveau-app.azurewebsites.net");
 
 const ChatApp = () => {
   const [newUser, setNewUser] = useState("");

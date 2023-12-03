@@ -1,8 +1,8 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import logo from './../img/Nouveau Health-logos_white.png';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { 
+import "bootstrap/dist/css/bootstrap.min.css";
+import logo from "./../img/Nouveau Health-logos_white.png";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {
   Navbar,
   NavbarBrand,
   NavbarText,
@@ -22,26 +22,26 @@ import {
   CarouselControl,
   CarouselIndicators,
   CarouselCaption,
-  Row
- } from 'reactstrap';
+  Row,
+} from "reactstrap";
 
- const items = [
+const items = [
   {
-    src: 'https://picsum.photos/id/123/1200/400',
-    altText: 'Patient',
-    caption: 'Patient',
+    src: "https://picsum.photos/id/123/1200/400",
+    altText: "Patient",
+    caption: "Patient",
     key: 1,
   },
   {
-    src: 'https://picsum.photos/id/456/1200/400',
-    altText: 'Doctor',
-    caption: 'Doctor',
+    src: "https://picsum.photos/id/456/1200/400",
+    altText: "Doctor",
+    caption: "Doctor",
     key: 2,
   },
   {
-    src: 'https://picsum.photos/id/678/1200/400',
-    altText: 'Insurance Provider',
-    caption: 'Insurance Provider',
+    src: "https://picsum.photos/id/678/1200/400",
+    altText: "Insurance Provider",
+    caption: "Insurance Provider",
     key: 3,
   },
 ];
@@ -49,7 +49,7 @@ import {
 export default function Root(args) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
-
+  const navigate = useNavigate();
   const next = () => {
     if (animating) return;
     const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
@@ -67,6 +67,22 @@ export default function Root(args) {
     setActiveIndex(newIndex);
   };
 
+  // const slides = items.map((item) => {
+  //   return (
+  //     <CarouselItem
+  //       onExiting={() => setAnimating(true)}
+  //       onExited={() => setAnimating(false)}
+  //       key={item.src}
+  //     >
+  //       <img src={item.src} alt={item.altText} style={{width: "100%"}} />
+  //       <CarouselCaption
+  //         captionText={item.caption}
+  //         captionHeader={item.caption}
+  //       />
+  //     </CarouselItem>
+  //   );
+  // });
+
   const slides = items.map((item) => {
     return (
       <CarouselItem
@@ -74,83 +90,97 @@ export default function Root(args) {
         onExited={() => setAnimating(false)}
         key={item.src}
       >
-        <img src={item.src} alt={item.altText} style={{width: "100%"}} />
+        <img src={item.src} alt={item.altText} style={{ width: "100%" }} />
         <CarouselCaption
           captionText={item.caption}
           captionHeader={item.caption}
         />
+        <div
+          style={{
+            position: "absolute",
+            bottom: "120px",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
+          <Button
+            color="primary"
+            onClick={() => handleButtonClick(item.caption)}
+          >
+            Login
+          </Button>
+        </div>
       </CarouselItem>
     );
   });
 
-  const navigate = useNavigate();
+  function handleButtonClick(caption) {
+    // navigate("/login");
+    navigate("/login", { state: { caption } });
+  }
 
   function handleClick() {
-      navigate("/registration");
+    navigate("/registration");
   }
-    return (
-      <>
-        <Navbar
-          color="dark"
-          dark
-        >
-          <NavbarBrand href="/">
-            <img
-              alt="NV Logo"
-              src={logo}
-              style={{
-                height: 60,
-                width: 60
-              }}
-            />
-            Nouveau Health
-          </NavbarBrand>
-          <NavItem>
-            <NavLink href="/login">
-              <NavbarText>Login</NavbarText>
-            </NavLink>
-          </NavItem>
-        </Navbar>
-        <Carousel
-            activeIndex={activeIndex}
-            next={next}
-            previous={previous}
-            {...args}
-          >
-            <CarouselIndicators
-              items={items}
-              activeIndex={activeIndex}
-              onClickHandler={goToIndex}
-            />
-            {slides}
-            <CarouselControl
-              direction="prev"
-              directionText="Previous"
-              onClickHandler={previous}
-            />
-            <CarouselControl
-              direction="next"
-              directionText="Next"
-              onClickHandler={next}
-            />
-        </Carousel>
-        <Container>
-          <div
+  return (
+    <>
+      <Navbar color="dark" dark>
+        <NavbarBrand href="/">
+          <img
+            alt="NV Logo"
+            src={logo}
             style={{
-              justifyContent:'center',
-              textAlign:'center' 
-            
-          }}>
-            <Row>
-              <h1>Join Us Today</h1>
-            </Row>
-            <Row>
-              <Button onClick={handleClick}>Register</Button>
-            </Row>
-          </div>
-          
-        </Container>
-        {/* <div id="sidebar">
+              height: 60,
+              width: 60,
+            }}
+          />
+          Nouveau Health
+        </NavbarBrand>
+        {/* <NavItem>
+          <NavLink href="/login">
+            <NavbarText>Login</NavbarText>
+          </NavLink>
+        </NavItem> */}
+      </Navbar>
+      <Carousel
+        activeIndex={activeIndex}
+        next={next}
+        previous={previous}
+        {...args}
+      >
+        <CarouselIndicators
+          items={items}
+          activeIndex={activeIndex}
+          onClickHandler={goToIndex}
+        />
+        {slides}
+        <CarouselControl
+          direction="prev"
+          directionText="Previous"
+          onClickHandler={previous}
+        />
+        <CarouselControl
+          direction="next"
+          directionText="Next"
+          onClickHandler={next}
+        />
+      </Carousel>
+      <Container>
+        <div
+          style={{
+            justifyContent: "center",
+            textAlign: "center",
+          }}
+        >
+          <Row>
+            <h1>Join Us Today</h1>
+          </Row>
+          <Row>
+            <Button onClick={handleClick}>Register</Button>
+          </Row>
+        </div>
+      </Container>
+      {/* <div id="sidebar">
           <h1>React Router Testings push</h1>
           <div>
             <form id="search-form" role="search">
@@ -177,6 +207,6 @@ export default function Root(args) {
           </div>
         </div>
         <div id="detail"></div> */}
-      </>
-    );
-  }
+    </>
+  );
+}
