@@ -118,7 +118,7 @@ export default function PatientHome() {
             console.log(response.data);
         }, (error) => {
             console.log(error);
-            alert(error.response.data);
+            alert(error.response?.data);
             setUpcomingLoading(false);
         });
     }
