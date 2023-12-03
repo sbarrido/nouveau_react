@@ -159,7 +159,7 @@ export default function InsurancePlans() {
 
 
     const clickDelete = (planid) => {
-        if(window.confirm("Are you sure you want to delete this plan?")) {
+        if(window.confirm("Are you sure you want to delete this plan? All users who are subscribed to this plan will be unsubscribed.")) {
             sendDelete(planid)
         }
     }

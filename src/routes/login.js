@@ -78,7 +78,7 @@ export default function Login() {
             }
         }, (error) => {
             console.log(error);
-            alert(`Login failed: ${error.response.data}. Please check your information and try again`);
+            alert(`Login failed: ${error}. Please check your information and try again`);
         });
     }
 
