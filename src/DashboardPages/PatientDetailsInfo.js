@@ -6,7 +6,7 @@ import "../css/PatientDetailsInfo.css";
 function PatientDetailsInfo(props) {
   let BASE_URL = "http://localhost:8080";
   const [patientDataInfo, setPatientDataInfo] = useState([]);
-  const doctorID = 3;
+  const doctorID = Number(sessionStorage.getItem("userid"));
 
   const { patientID, patientName } = useParams();
   console.log("Patient ID:", patientID);

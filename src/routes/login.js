@@ -19,8 +19,8 @@ import "../css/Login.css";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-// let LOGIN_URL = "https://nouveau-app.azurewebsites.net/login";
-let LOGIN_URL = "http://localhost:8080/login";
+let LOGIN_URL = "https://nouveau-app.azurewebsites.net/login";
+// let LOGIN_URL = "http://localhost:8080/login";
 let GOOGLEAUTH_PATH = "/googleauth";
 export default function Login() {
   let roleName = "";
@@ -75,7 +75,8 @@ export default function Login() {
     /* global google */
     google.accounts.id.initialize({
       client_id:
-        "881661732927-7vr8rkb2i0q11h5te0idk6ucvim2fro3.apps.googleusercontent.com",
+        // "881661732927-7vr8rkb2i0q11h5te0idk6ucvim2fro3.apps.googleusercontent.com",
+        "881661732927-mmbgpuotn8vha5s5basldolcel8ad2cv.apps.googleusercontent.com",
       callback: handleCallbackResponse,
     });
 
