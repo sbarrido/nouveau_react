@@ -7,7 +7,8 @@ import PatientDetailsInfo from "./PatientDetailsInfo";
 
 const PATIENTSDETAILSINFORROUTE = "/doctor/patientdetails/patientdetailsInfo";
 let DetailsInfo = [];
-let BASE_URL = "http://localhost:8080";
+// let BASE_URL = "http://localhost:8080";
+let BASE_URL = "https://nouveau-app.azurewebsites.net";
 const doctorID = 3;
 
 function PatientDetails() {

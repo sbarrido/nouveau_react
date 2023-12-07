@@ -4,7 +4,8 @@ import axios from "axios";
 import "../css/PatientDetailsInfo.css";
 
 function PatientDetailsInfo(props) {
-  let BASE_URL = "http://localhost:8080";
+  // let BASE_URL = "http://localhost:8080";
+  let BASE_URL = "https://nouveau-app.azurewebsites.net";
   const [patientDataInfo, setPatientDataInfo] = useState([]);
   const doctorID = Number(sessionStorage.getItem("userid"));
 
