@@ -20,8 +20,6 @@ import InsuranceProfile from "./routes/insuranceprofile";
 import DoctorView from "./routes/doctorview";
 import PatientInsurance from "./routes/patientinsurance";
 import InsurancePlans from "./routes/providerinsuranceplans";
-import DoctorDashboard from "./routes/doctordashboard";
-import PatientDashboard from "./routes/patientdashboard";
 import ChatApp from "./DashboardPages/ChatApp";
 import PatientDetails from "./DashboardPages/PatientDetails";
 import PatientDetailsInfo from "./DashboardPages/PatientDetailsInfo";
@@ -101,20 +99,12 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "insurance/doctorchat",
+    path: "insurance/profile",
     element: <InsuranceProfile />,
   },
   {
     path: "insurance/plans",
     element: <InsurancePlans />,
-  },
-  {
-    path: "doctordashboard/*",
-    element: <DoctorDashboard />,
-  },
-  {
-    path: "patientdashboard/*",
-    element: <PatientDashboard />,
   },
 ]);
 
