@@ -167,9 +167,15 @@ export default function Root(args) {
       </Carousel>
       <Container>
         <div
+          // style={{
+          //   justifyContent: "center",
+          //   textAlign: "center",
+          // }}
           style={{
-            justifyContent: "center",
-            textAlign: "center",
+            position: "absolute",
+            bottom: "120px",
+            left: "50%",
+            transform: "translateX(-50%)",
           }}
         >
           <Row>

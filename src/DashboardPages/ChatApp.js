@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.css";
 import { io } from "socket.io-client";
-import Login from "../components/Login";
+import Dashboard from "../components/Dashboard";
 import Chat from "../components/Chat";
 import "../css/ChatApp.css";
 
@@ -12,6 +12,7 @@ const socket = io("https://nouveau-app.azurewebsites.net");
 const ChatApp = () => {
   const userid = Number(sessionStorage.getItem("userid"));
   const newUser = sessionStorage.getItem("name");
+  const role = sessionStorage.getItem("role");
   console.log(userid, newUser);
 
   const [user, setUser] = useState({});
@@ -53,27 +54,30 @@ const ChatApp = () => {
   };
 
   return (
-    <main className="content">
-      <div className="container mt-3">
-        {user.userId && (
-          <Chat
-            user={user}
-            users={users}
-            setUsers={setUsers}
-            messages={messages}
-            setMessages={setMessages}
-            socket={socket}
-          />
-        )}
-        {/* {!user.userId && (
+    <>
+      <Dashboard role={role} />
+      <main className="content">
+        <div className="container mt-3">
+          {user.userId && (
+            <Chat
+              user={user}
+              users={users}
+              setUsers={setUsers}
+              messages={messages}
+              setMessages={setMessages}
+              socket={socket}
+            />
+          )}
+          {/* {!user.userId && (
           <Login
             newUser={newUser}
             handleChange={handleChange}
             logNewUser={logNewUser}
           />
         )} */}
-      </div>
-    </main>
+        </div>
+      </main>
+    </>
   );
 };
 

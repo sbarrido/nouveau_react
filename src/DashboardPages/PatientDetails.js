@@ -4,13 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import "../css/DoctorProfile.css";
 import { Routes, Route, Outlet } from "react-router-dom";
 import PatientDetailsInfo from "./PatientDetailsInfo";
+import Dashboard from "../components/Dashboard";
 
 const PATIENTSDETAILSINFORROUTE = "/doctor/patientdetails/patientdetailsInfo";
 let DetailsInfo = [];
 // let BASE_URL = "http://localhost:8080";
 let BASE_URL = "https://nouveau-app.azurewebsites.net";
-const doctorID = 3;
-
+const doctorID = Number(sessionStorage.getItem("userid"));
+const role = sessionStorage.getItem("role");
 function PatientDetails() {
   const [patientData, setPatientData] = useState([]);
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ function PatientDetails() {
 
   return (
     <>
+      <Dashboard role={role} />
       <div className="flexbox" id="patientBox">
         <div className="patientBox">
           {patientData.map((item, index) => (
