@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+}
+
+.loginform {
+  width: 40%;
+  margin: 20px 50px;
+}
+.divider {
+  height: 500px;
+  margin: 10px 30px;
+  width: 5px;
+  background-color: black;
+}
+.googleSignIn {
+  height: 100px;
+  width: 280px;
+  margin: 125px 100px;
+}
