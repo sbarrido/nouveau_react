@@ -173,7 +173,7 @@ export default function Root(args) {
           // }}
           style={{
             position: "absolute",
-            bottom: "120px",
+            bottom: "50px",
             left: "50%",
             transform: "translateX(-50%)",
           }}
